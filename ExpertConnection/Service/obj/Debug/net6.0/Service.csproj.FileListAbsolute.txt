@@ -1,0 +1,17 @@
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\bin\Debug\net6.0\Service.deps.json
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\bin\Debug\net6.0\Service.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\bin\Debug\net6.0\Service.pdb
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.csproj.AssemblyReference.cache
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.AssemblyInfoInputs.cache
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.AssemblyInfo.cs
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.csproj.CoreCompileInputs.cache
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\refint\Service.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.pdb
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\ref\Service.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\bin\Debug\net6.0\DataConnection.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\bin\Debug\net6.0\DataConnection.pdb
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\obj\Debug\net6.0\Service.csproj.CopyComplete
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\bin\Debug\net6.0\ViewModel.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\Service\bin\Debug\net6.0\ViewModel.pdb
