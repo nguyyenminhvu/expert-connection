@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sMeoWntkKSxIqdyJo6CMA1dxspcsEb+6Sr//I7XbsexI3zskGRThGmCXlQba9ewt2V8eHu9kgoyqOXhcy8APhQ==",
+  "dgSpecHash": "SS+OLOghXp/0BxwGJneM/7f4LlOfVkFjxOJKf1CJ92au4Jsv7WZpb9g7iHz4blhmJ22HWKxbksYjei2vhl7GiA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\ExpertConnection\\ExpertConnection\\ExpertConnection.csproj",
+  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\expert-connection\\ExpertConnection\\ExpertConnection\\ExpertConnection.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ACER\\.nuget\\packages\\autofac\\7.0.1\\autofac.7.0.1.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\autofac.extensions.dependencyinjection\\8.0.0\\autofac.extensions.dependencyinjection.8.0.0.nupkg.sha512",

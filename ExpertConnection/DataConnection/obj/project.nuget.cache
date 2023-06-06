@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wRzX2UhwM98gp2+qb/KI0YUwe3nUw43bj0A5eS96DT21L0noaepkXLYeIx101EeF+VJjR70ujp41flur5pLGAA==",
+  "dgSpecHash": "0R1pHkoP4etPDAgJT4BqD4aAN0n9BmsFPRvErvpnnKje/LNhEOMQjRrEnFcHDUvK3z630GjTbeQKPaYKwh4A6w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\ExpertConnection\\DataConnection\\DataConnection.csproj",
+  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\expert-connection\\ExpertConnection\\DataConnection\\DataConnection.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ACER\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

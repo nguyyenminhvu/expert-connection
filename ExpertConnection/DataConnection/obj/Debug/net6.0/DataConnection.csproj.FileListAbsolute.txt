@@ -12,3 +12,17 @@ C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\DataConnection\ob
 C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.pdb
 C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.genruntimeconfig.cache
 C:\Users\ACER\Desktop\General\C#\.NET Web API\ExpertConnection\DataConnection\obj\Debug\net6.0\ref\DataConnection.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\bin\Debug\net6.0\DataConnection.deps.json
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\bin\Debug\net6.0\DataConnection.runtimeconfig.json
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\bin\Debug\net6.0\DataConnection.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\bin\Debug\net6.0\DataConnection.pdb
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.csproj.AssemblyReference.cache
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.AssemblyInfoInputs.cache
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.AssemblyInfo.cs
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.csproj.CoreCompileInputs.cache
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\refint\DataConnection.dll
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.pdb
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\DataConnection.genruntimeconfig.cache
+C:\Users\ACER\Desktop\General\C#\.NET Web API\expert-connection\ExpertConnection\DataConnection\obj\Debug\net6.0\ref\DataConnection.dll
