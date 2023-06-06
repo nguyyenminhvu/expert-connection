@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pVOY5QPK7AD9+JvoZgeKZRmJd3IlVAZiVb+R3d4OV5vYwxQ3SUD05jJ4bT353b2qJT7Qmk7HKihmDiYZsktvKQ==",
+  "dgSpecHash": "71N3+zsbsLDPTGEALmrvkSvjDNoy9QSiGW03BZHFlJxHA3orVhsWjMFGBq+eieRfxlcVjZ6Vm02PfhwtzKcStg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\ExpertConnection\\Service\\Service.csproj",
+  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\expert-connection\\ExpertConnection\\Service\\Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ACER\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

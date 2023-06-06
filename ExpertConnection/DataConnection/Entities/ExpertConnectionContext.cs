@@ -109,10 +109,13 @@ public partial class ExpertConnectionContext : DbContext
 
         modelBuilder.Entity<Chat>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Chat_1");
+
             entity.ToTable("Chat");
 
             entity.Property(e => e.Id).HasMaxLength(400);
             entity.Property(e => e.AdviseId).HasMaxLength(400);
+            entity.Property(e => e.Contents).HasMaxLength(400);
             entity.Property(e => e.CreatedDate).HasColumnType("datetime");
             entity.Property(e => e.FromAcc).HasMaxLength(400);
             entity.Property(e => e.ImageUrl).HasMaxLength(400);

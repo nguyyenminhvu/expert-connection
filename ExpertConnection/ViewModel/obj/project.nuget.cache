@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "o2PAP7zsXxENs23hUgoiW70F1veAeACVfzxpK66R0LlCXvis7vRV94r1RYryxAal5hoEmtnu/jxEBjih+waRlg==",
+  "dgSpecHash": "C+WUFHTRFB85/Wph9ggvH/QhgC7qTyj06OpGzlQIOmRk5HENWV6DsJVrvkNXUfaC56gghzYfglnym5eVDiC0ZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\ExpertConnection\\ViewModel\\ViewModel.csproj",
+  "projectFilePath": "C:\\Users\\ACER\\Desktop\\General\\C#\\.NET Web API\\expert-connection\\ExpertConnection\\ViewModel\\ViewModel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ACER\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\ACER\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

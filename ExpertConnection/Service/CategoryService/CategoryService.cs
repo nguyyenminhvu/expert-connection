@@ -31,7 +31,7 @@ namespace Service.CategoryService
         }
         public async Task<IActionResult> GetAll()
         {
-            return new JsonResult(await _context.Categories.ProjectTo<CategoryViewModel>(_mapper.ConfigurationProvider).ToListAsync());
+            return new JsonResult(await _context.Categories.Where(x=>x.IsActive).ProjectTo<CategoryViewModel>(_mapper.ConfigurationProvider).ToListAsync());
         }
         public async Task<IActionResult> CreateCategory(string name)
         {
@@ -46,7 +46,7 @@ namespace Service.CategoryService
         }
         public async Task<IActionResult> UpdateCategory(Guid categoryId, CategoryUpdateViewModel categoryVM)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(categoryId.ToString()));
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(categoryId.ToString()) && x.IsActive);
             if (category != null)
             {
                 category.Name = categoryVM.Name ?? category.Name;
@@ -57,7 +57,7 @@ namespace Service.CategoryService
         }
         public async Task<IActionResult> RemoveCategory(Guid categoryId)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(categoryId.ToString()));
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(categoryId.ToString()) && x.IsActive);
             if (category != null)
             {
                 category.IsActive = false;

@@ -8,6 +8,8 @@ namespace ViewModel.User
 {
     public class UserViewModel
     {
+        public string Id { get; set; } = null!;
+
         public string Fullname { get; set; } = null!;
 
         public DateTime Birthday { get; set; }
@@ -19,10 +21,6 @@ namespace ViewModel.User
         public string PhoneNumber { get; set; } = null!;
 
         public string Email { get; set; } = null!;
-
-
-
-
 
     }
 }

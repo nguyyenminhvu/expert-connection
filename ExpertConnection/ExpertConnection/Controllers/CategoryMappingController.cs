@@ -7,6 +7,8 @@ using ViewModel.ErrorDTO;
 using ViewModel.CategoryMapping.Request;
 using System.Runtime.InteropServices;
 using Service.ExpertService;
+using DataConnection.Entities;
+using ViewModel.CategoryMapping.View;
 
 namespace ExpertConnection.Controllers
 {
@@ -47,9 +49,23 @@ namespace ExpertConnection.Controllers
         }
 
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetCategoryMapping([FromRoute] Guid id)
+        {
+            var rs = await _categoryMappingService.GetCategoryMapping(id);
+            if (rs is JsonResult json)
+            {
+                return Ok(json.Value);
+            }
+            return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "CategoryMappingId invalid" });
+
+        }
+
+
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> RegisterCategory(CategoryMappingCreate cmc)
+        public async Task<IActionResult> RegisterCategoryMapping(CategoryMappingCreate cmc)
         {
             var header = Request.Headers[AUTHORIZATION].ToString();
             if (!string.IsNullOrEmpty(header))
@@ -60,7 +76,7 @@ namespace ExpertConnection.Controllers
                 {
                     return StatusCode(StatusCodes.Status403Forbidden, error);
                 }
-                var rs = await _categoryMappingService.RegisterCategory(cmc);
+                var rs = await _categoryMappingService.RegisterCategoryMapping(cmc);
                 if (rs is JsonResult json)
                 {
                     return Ok(json.Value);
@@ -74,7 +90,7 @@ namespace ExpertConnection.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<IActionResult> CategoryMappingUpdate([FromRoute]Guid id,[FromQuery] CategoryMappingUpdate cmu)
+        public async Task<IActionResult> CategoryMappingUpdate([FromRoute] Guid id, [FromQuery] CategoryMappingUpdate cmu)
         {
             var header = Request.Headers[AUTHORIZATION].ToString();
             if (!string.IsNullOrEmpty(header))
@@ -86,10 +102,15 @@ namespace ExpertConnection.Controllers
                     return StatusCode(StatusCodes.Status403Forbidden, error);
                 }
                 var auth = await _expertService.CheckExist(checkToken.AccId);
-                var category = await _categoryMappingService.GetCategoryMapping(id);
-                if (!auth.Id.Equals(category.ExpertId))
+                var categoryQuery = await _categoryMappingService.GetCategoryMapping(id);
+                if (categoryQuery is JsonResult json)
                 {
-                    return StatusCode(StatusCodes.Status403Forbidden, error);
+                    if (json.Value == null) { return BadRequest(new { Message = "CategoryMappingId invalid" }); }
+                    var category = json.Value as CategoryMappingViewModel;
+                    if (!auth.Id.Equals(category.ExpertId))
+                    {
+                        return StatusCode(StatusCodes.Status403Forbidden, error);
+                    }
                 }
                 var rs = await _categoryMappingService.UpdateCategoryMapping(id, cmu);
                 if (rs is StatusCodeResult status)
@@ -97,6 +118,40 @@ namespace ExpertConnection.Controllers
                     if (status.StatusCode == 200) return Ok();
                     if (status.StatusCode == 400) return BadRequest(new { Message = "CategoryMappingId invalid" });
                     if (status.StatusCode == 500) return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+            }
+            error.Message = UNAUTHORIED;
+            return StatusCode(StatusCodes.Status401Unauthorized, error);
+        }
+
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> RemoveCategoryMapping([FromRoute] Guid id)
+        {
+            var header = Request.Headers[AUTHORIZATION].ToString();
+            if (!string.IsNullOrEmpty(header))
+            {
+                error.Message = NOT_ACCESS;
+                var token = await _authService.CheckTokenAsync(header);
+                if (token == null || !token.RoleName.Equals(EXPERT))
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, error);
+                }
+                var auth = await _expertService.CheckExist(token.AccId);
+                if (auth == null)
+                {
+                    return StatusCode(StatusCodes.Status403Forbidden, error);
+                }
+                var rs = await _categoryMappingService.RemoveCategoryMapping(id);
+                if (rs is StatusCodeResult status)
+                {
+                    switch (status.StatusCode)
+                    {
+                        case 200: return StatusCode(StatusCodes.Status204NoContent);
+                        case 500: return StatusCode(StatusCodes.Status500InternalServerError, new { Message = "Status500InternalServerError" });
+                        case 400: return StatusCode(StatusCodes.Status400BadRequest, new { Message = "CategoryMappingId invalid" });
+                    }
                 }
             }
             error.Message = UNAUTHORIED;
