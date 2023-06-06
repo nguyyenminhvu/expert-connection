@@ -25,8 +25,6 @@ public partial class Expert
 
     public bool ExpertConfirmed { get; set; }
 
-    public bool IsActive { get; set; }
-
     public string AccId { get; set; } = null!;
 
     public virtual Account Acc { get; set; } = null!;

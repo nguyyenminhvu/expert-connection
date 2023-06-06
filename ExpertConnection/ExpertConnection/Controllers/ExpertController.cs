@@ -7,6 +7,7 @@ using Service.ExpertService;
 using ViewModel.ErrorDTO;
 using ViewModel.Auth;
 using ViewModel.Expert.Request;
+using ViewModel.Advise.Request;
 
 namespace ExpertConnection.Controllers
 {
@@ -130,5 +131,37 @@ namespace ExpertConnection.Controllers
             error.Message = UNAUTHORIED;
             return StatusCode(StatusCodes.Status401Unauthorized, error);
         }
+
+
+        [HttpPost]
+        [Route("accept/{id}")]
+        public async Task<IActionResult> Accept([FromRoute] Guid id)
+        {
+            var header = Request.Headers[AUTHORIZATION].FirstOrDefault()?.Split(" ").Last().ToString();
+            if (!string.IsNullOrEmpty(header))
+            {
+                var checkToken = await _authService.CheckTokenAsync(header);
+                if (checkToken == null || !checkToken.RoleName.Equals(EMPLOYEE))
+                {
+                    error.Message = NOT_ACCESS;
+                    return StatusCode(StatusCodes.Status403Forbidden, error);
+                }
+                if (ModelState.IsValid)
+                {
+                    var rs = await _expertService.Accept(id);
+                    return rs ? Ok(new { Message = "success" }) : BadRequest();
+                }
+                else
+                {
+                    var er = ModelState.Select(x => x.Value.Errors).Where(x => x.Count > 0).ToList();
+                    return BadRequest(er);
+                }
+            }
+            error.Message = UNAUTHORIED;
+            return StatusCode(StatusCodes.Status401Unauthorized, error);
+        }
+
+       
+
     }
 }

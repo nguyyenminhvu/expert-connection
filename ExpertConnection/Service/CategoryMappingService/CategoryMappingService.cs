@@ -10,10 +10,11 @@ namespace Service.CategoryMappingService
 {
     public interface ICategoryMappingService
     {
-        public Task<IActionResult> RegisterCategory(CategoryMappingCreate cmc);
+        public Task<IActionResult> RegisterCategoryMapping(CategoryMappingCreate cmc);
         public Task<IActionResult> GetCategoriesMapping(CategoryMappingSearch categoryMapping);
         public Task<IActionResult> UpdateCategoryMapping(Guid categoryMappingId, CategoryMappingUpdate cmu);
-        public Task<CategoryMappingViewModel> GetCategoryMapping(Guid id);
+        public Task<IActionResult> GetCategoryMapping(Guid id);
+        public Task<IActionResult> RemoveCategoryMapping(Guid id);
     }
     public class CategoryMappingService : ICategoryMappingService
     {
@@ -78,9 +79,9 @@ namespace Service.CategoryMappingService
             _context = context;
         }
 
-        public async Task<IActionResult> RegisterCategory(CategoryMappingCreate cmc)
+        public async Task<IActionResult> RegisterCategoryMapping(CategoryMappingCreate cmc)
         {
-            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(cmc.CategoryId));
+            var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id.Equals(cmc.CategoryId) && x.IsActive);
             var expert = await _context.Experts.FirstOrDefaultAsync(x => x.Id.Equals(cmc.ExpertId));
             if (category != null && expert != null)
             {
@@ -106,7 +107,7 @@ namespace Service.CategoryMappingService
 
         public async Task<IActionResult> GetCategoriesMapping(CategoryMappingSearch categoryMapping)
         {
-            IQueryable<CategoryMapping> query = _context.CategoryMappings;
+            IQueryable<CategoryMapping> query = _context.CategoryMappings.Where(x => x.IsActive);
 
             query = FilterPrice(categoryMapping.FromPrice, categoryMapping.ToPrice, query);
             query = FilterExperienceYear(categoryMapping.FromExperienceYear, categoryMapping.ToExperienceYear, query);
@@ -123,9 +124,10 @@ namespace Service.CategoryMappingService
             return new JsonResult(await query.ProjectTo<CategoryMappingViewModel>(_mapper.ConfigurationProvider).ToListAsync());
         }
 
+
         public async Task<IActionResult> UpdateCategoryMapping(Guid categoryMappingId, CategoryMappingUpdate cmu)
         {
-            var categoryMapping = await _context.CategoryMappings.Where(x => x.Id.Equals(categoryMappingId.ToString())).FirstOrDefaultAsync();
+            var categoryMapping = await _context.CategoryMappings.Where(x => x.Id.Equals(categoryMappingId.ToString()) && x.IsActive).FirstOrDefaultAsync();
             if (categoryMapping != null)
             {
                 categoryMapping.ExpertId = cmu.ExpertId ?? categoryMapping.ExpertId;
@@ -141,24 +143,25 @@ namespace Service.CategoryMappingService
             return new StatusCodeResult(400);
         }
 
-        public async Task<CategoryMappingViewModel> GetCategoryMapping(Guid id)
+        public async Task<IActionResult> GetCategoryMapping(Guid id)
+        {
+            var categoryMapping = await _context.CategoryMappings.FirstOrDefaultAsync(x => x.Id.Equals(id.ToString()) && x.IsActive);
+            if (categoryMapping != null)
+            {
+                return new JsonResult(_mapper.Map<CategoryMappingViewModel>(categoryMapping));
+            }
+            return new JsonResult(null);
+        }
+
+        public async Task<IActionResult> RemoveCategoryMapping(Guid id)
         {
             var categoryMapping = await _context.CategoryMappings.FirstOrDefaultAsync(x => x.Id.Equals(id.ToString()));
             if (categoryMapping != null)
             {
-                return new CategoryMappingViewModel
-                {
-                    Id = categoryMapping.Id,
-                    ExpertId = categoryMapping.ExpertId,
-                    CategoryId = categoryMapping.CategoryId,
-                    Price = categoryMapping.Price,
-                    ExperienceYear = categoryMapping.ExperienceYear,
-                    SummaryRating = categoryMapping.SummaryRating,
-                    Introduction = categoryMapping.Introduction,
-                    Description = categoryMapping.Description,
-                };
+                categoryMapping.IsActive = false;
+                return await _context.SaveChangesAsync() > 0 ? new StatusCodeResult(200) : new StatusCodeResult(500);
             }
-            return null;
+            return new StatusCodeResult(400);
         }
     }
 }

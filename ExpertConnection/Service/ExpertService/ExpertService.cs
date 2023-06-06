@@ -22,6 +22,8 @@ namespace Service.ExpertService
         public Task<Expert> CheckExist(string accId);
         public Task<IActionResult> GetExpert(Guid expertId);
         public Task<bool> UpdateExpert(Guid expertId, ExpertUpdate expertUpdate);
+        public Task<bool> Accept(Guid Id);
+        public Task<ExpertViewModel> GetExpertByAccId(string accId);
     }
 
     public class ExpertService : IExpertService
@@ -41,7 +43,7 @@ namespace Service.ExpertService
         }
         public async Task<List<ExpertViewModel>> GetAll()
         {
-            return await _context.Experts.ProjectTo<ExpertViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+            return await _context.Experts.Include(x => x.Acc).Where(x => x.Acc.IsActive).ProjectTo<ExpertViewModel>(_mapper.ConfigurationProvider).ToListAsync();
         }
         public async Task<bool> CreateExpert(ExpertCreateViewModel expertCreate)
         {
@@ -73,7 +75,6 @@ namespace Service.ExpertService
                 Phone = expertCreate.Phone,
                 EmailConfirmed = false,
                 ExpertConfirmed = false,
-                IsActive = true,
                 AccId = account.Id,
                 Acc = account
             };
@@ -82,7 +83,7 @@ namespace Service.ExpertService
         }
         public async Task<Expert> CheckExist(string accId)
         {
-            return await _context.Experts.FirstOrDefaultAsync(x => x.AccId.Equals(accId)) ;
+            return await _context.Experts.FirstOrDefaultAsync(x => x.AccId.Equals(accId));
         }
         public async Task<bool> UpdateExpert(Guid expertId, ExpertUpdate expertUpdate)
         {
@@ -103,6 +104,21 @@ namespace Service.ExpertService
         public async Task<IActionResult> GetExpert(Guid expertId)
         {
             return new JsonResult(await _context.Experts.ProjectTo<ExpertViewModel>(_mapper.ConfigurationProvider).FirstOrDefaultAsync(x => x.Id.Equals(expertId.ToString())));
+        }
+        public async Task<bool> Accept(Guid Id)
+        {
+            var expert = await _context.Experts.FirstOrDefaultAsync(x => x.Id.Equals(Id.ToString()));
+            if (expert != null && expert.ExpertConfirmed == false)
+            {
+                expert.ExpertConfirmed = true;
+                return await _context.SaveChangesAsync() > 0 ? true : false;
+            }
+            return false;
+        }
+        public async Task<ExpertViewModel> GetExpertByAccId(string accId)
+        {
+            var rs = await _context.Experts.FirstOrDefaultAsync(x => x.AccId.Equals(accId));
+            return _mapper.Map<ExpertViewModel>(rs);
         }
     }
 }

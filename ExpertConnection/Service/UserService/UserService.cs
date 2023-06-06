@@ -5,6 +5,7 @@ using ViewModel.User;
 using AutoMapper.QueryableExtensions;
 using AutoMapper;
 using AdminService.HashService;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Service.UserService
 {
@@ -12,6 +13,9 @@ namespace Service.UserService
     {
         Task<bool> CreateUser(UserCreateViewModel userCreate);
         Task<List<UserViewModel>> GetAll();
+        public Task<bool> Accept(Guid Id);
+        public Task<bool> CheckExist(string accId);
+        public Task<UserViewModel> GetUserByAccId(string accId);
     }
     public class UserService : IUserService
     {
@@ -20,7 +24,8 @@ namespace Service.UserService
         private ExpertConnectionContext _context;
         private readonly string Key = "k1H25jDl1cxKMWOz1tte5I961K5oivZgJ4xdYF1hBAt85Tt1jqGwwpFvqmbToCBL";
 
-        public UserService(ExpertConnectionContext expertConnection,  IMapper mapper, IHashService hashService)
+
+        public UserService(ExpertConnectionContext expertConnection, IMapper mapper, IHashService hashService)
         {
             _hashService = hashService;
             _mapper = mapper;
@@ -37,7 +42,7 @@ namespace Service.UserService
                 {
                     Id = Guid.NewGuid().ToString(),
                     Username = userCreate.Username,
-                    Password = _hashService.SHA256(Key+ userCreate.Password),
+                    Password = _hashService.SHA256(Key + userCreate.Password),
                     Role = role.Id,
                     IsActive = true
                 };
@@ -66,6 +71,26 @@ namespace Service.UserService
         public async Task<List<UserViewModel>> GetAll()
         {
             return await _context.Users.ProjectTo<UserViewModel>(_mapper.ConfigurationProvider).ToListAsync();
+        }
+        public async Task<bool> Accept(Guid Id)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id.Equals(Id.ToString()));
+            if (user != null && user.UserConfirmed == false)
+            {
+                user.UserConfirmed = true;
+                return await _context.SaveChangesAsync() > 0 ? true : false;
+            }
+            return false;
+        }
+        public async Task<UserViewModel> GetUserByAccId(string accId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.AccId.Equals(accId));
+            return _mapper.Map<UserViewModel>(user);
+        }
+        public async Task<bool> CheckExist(string accId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.AccId.Equals(accId));
+            return user != null;
         }
     }
 }
