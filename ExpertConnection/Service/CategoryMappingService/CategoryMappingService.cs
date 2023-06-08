@@ -15,6 +15,8 @@ namespace Service.CategoryMappingService
         public Task<IActionResult> UpdateCategoryMapping(Guid categoryMappingId, CategoryMappingUpdate cmu);
         public Task<IActionResult> GetCategoryMapping(Guid id);
         public Task<IActionResult> RemoveCategoryMapping(Guid id);
+        public Task<CategoryMappingViewModel> UpdateRatingCategoryMapping(Guid id, int adviseNumber, double ratingNew);
+        public Task<int> GetCategoryMappingCountByExpertId(Guid expertId);
     }
     public class CategoryMappingService : ICategoryMappingService
     {
@@ -124,7 +126,6 @@ namespace Service.CategoryMappingService
             return new JsonResult(await query.ProjectTo<CategoryMappingViewModel>(_mapper.ConfigurationProvider).ToListAsync());
         }
 
-
         public async Task<IActionResult> UpdateCategoryMapping(Guid categoryMappingId, CategoryMappingUpdate cmu)
         {
             var categoryMapping = await _context.CategoryMappings.Where(x => x.Id.Equals(categoryMappingId.ToString()) && x.IsActive).FirstOrDefaultAsync();
@@ -162,6 +163,23 @@ namespace Service.CategoryMappingService
                 return await _context.SaveChangesAsync() > 0 ? new StatusCodeResult(200) : new StatusCodeResult(500);
             }
             return new StatusCodeResult(400);
+        }
+
+        public async Task<int> GetCategoryMappingCountByExpertId(Guid expertId)
+        {
+            return (await _context.CategoryMappings.Where(x => x.ExpertId.Equals(expertId)).ToListAsync()).Count();
+        }
+
+        public async Task<CategoryMappingViewModel> UpdateRatingCategoryMapping(Guid id, int adviseNumber, double ratingNew)
+        {
+            var categoryMapping = await _context.CategoryMappings.FirstOrDefaultAsync(x => x.Id.Equals(id.ToString()));
+            if (categoryMapping != null)
+            {
+                double ratingUpdate = (categoryMapping.SummaryRating * adviseNumber + ratingNew) /( adviseNumber + 1);
+                categoryMapping.SummaryRating = ratingUpdate;
+                return await _context.SaveChangesAsync() > 0 ? _mapper.Map<CategoryMappingViewModel>(categoryMapping) : null!;
+            }
+            return null!;
         }
     }
 }

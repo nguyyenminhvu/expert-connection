@@ -12,6 +12,7 @@ namespace Service.AdviseService
         public Task<IActionResult> CreateAdvise(AdviseCreateViewModel acm);
         public Task<IActionResult> Confirm(Guid adviseId, Guid id);
         public Task<AdviseViewModel> GetAdviseActive(Guid id);
+        public Task<int> GetAdviseCountByCategoryMappingId(Guid categoryMappingId);
     }
     public class AdviseService : IAdviseService
     {
@@ -81,6 +82,11 @@ namespace Service.AdviseService
         {
             var rs = await _context.Advises.FirstOrDefaultAsync(x => x.Id.Equals(id.ToString()) && !x.IsDone);
             return _mapper.Map<AdviseViewModel>(rs);
+        }
+
+        public async Task<int> GetAdviseCountByCategoryMappingId(Guid categoryMappingId)
+        {
+            return ( await _context.Advises.Where(x => x.CategoryMappingId.Equals(categoryMappingId.ToString())).ToListAsync()).Count();
         }
     }
 }
