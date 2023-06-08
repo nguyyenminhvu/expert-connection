@@ -23,6 +23,7 @@ namespace Service.ChatService
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<IActionResult> CreateChat(ChatInsertViewModel cvm)
         {
             var advise = await _context.Advises.Include(x => x.CategoryMapping).FirstOrDefaultAsync(x => x.Id.Equals(cvm.AdviseId.ToString()) && !x.IsDone);

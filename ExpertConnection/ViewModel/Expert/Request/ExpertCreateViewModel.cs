@@ -18,8 +18,6 @@ namespace ViewModel.Expert.Request
 
         public string Introduction { get; set; } = null!;
 
-        public double SummaryRating { get; set; }
-
         public string WorkRole { get; set; } = null!;
 
         public string Email { get; set; } = null!;

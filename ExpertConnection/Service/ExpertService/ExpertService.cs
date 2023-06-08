@@ -24,6 +24,7 @@ namespace Service.ExpertService
         public Task<bool> UpdateExpert(Guid expertId, ExpertUpdate expertUpdate);
         public Task<bool> Accept(Guid Id);
         public Task<ExpertViewModel> GetExpertByAccId(string accId);
+        public Task<bool> UpdateRatingExpert(Guid id, int categoryMappingCount, double ratingNew);
     }
 
     public class ExpertService : IExpertService
@@ -69,7 +70,6 @@ namespace Service.ExpertService
                 Fullname = expertCreate.Username,
                 CertificateLink = expertCreate.CertificateLink,
                 Introduction = expertCreate.Introduction,
-                SummaryRating = expertCreate.SummaryRating,
                 WorkRole = expertCreate.WorkRole,
                 Email = expertCreate.Email,
                 Phone = expertCreate.Phone,
@@ -119,6 +119,17 @@ namespace Service.ExpertService
         {
             var rs = await _context.Experts.FirstOrDefaultAsync(x => x.AccId.Equals(accId));
             return _mapper.Map<ExpertViewModel>(rs);
+        }
+        public async Task<bool> UpdateRatingExpert(Guid id, int categoryMappingCount, double ratingNew)
+        {
+            var expert = await _context.Experts.FirstOrDefaultAsync(x => x.Id.Equals(id.ToString()));
+            if (expert != null)
+            {
+                double ratingUpdate = (expert.SummaryRating * categoryMappingCount + ratingNew) / (categoryMappingCount + 1);
+                expert.SummaryRating = ratingUpdate;
+                return await _context.SaveChangesAsync() > 0 ? true : false;
+            }
+            return false;
         }
     }
 }

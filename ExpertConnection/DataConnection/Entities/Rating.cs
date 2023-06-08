@@ -9,7 +9,7 @@ public partial class Rating
 
     public string AdviseId { get; set; } = null!;
 
-    public double Rating1 { get; set; }
+    public double Ratings { get; set; }
 
     public string Comment { get; set; } = null!;
 

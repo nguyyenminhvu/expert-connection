@@ -13,6 +13,7 @@ using Service.ChatService;
 using Service.EmployeeService;
 using Service.ExpertService;
 using Service.MapperConfig;
+using Service.RatingService;
 using Service.ThrowException;
 using Service.UserService;
 using Swashbuckle.AspNetCore.Filters;
@@ -41,6 +42,7 @@ namespace ExpertConnection
                 builder.RegisterType<CategoryMappingService>().As<ICategoryMappingService>();
                 builder.RegisterType<AdviseService>().As<IAdviseService>();
                 builder.RegisterType<ChatService>().As<IChatService>();
+                builder.RegisterType<RatingService>().As<IRatingService>();
             });
             builder.Services.AddAutoMapper(typeof(ConfigMapper).Assembly);
             builder.Services.AddControllers(option => option.Filters.Add(typeof(CustomerExceptionFilter)));

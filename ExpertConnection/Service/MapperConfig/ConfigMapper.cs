@@ -10,6 +10,7 @@ using ViewModel.Category.View;
 using ViewModel.CategoryMapping.View;
 using ViewModel.Chat.Response;
 using ViewModel.Expert;
+using ViewModel.Rating;
 using ViewModel.User;
 
 namespace Service.MapperConfig
@@ -24,6 +25,7 @@ namespace Service.MapperConfig
             CreateMap<Category, CategoryViewModel>();
             CreateMap<Chat, ChatViewModel>();
             CreateMap<Advise, AdviseViewModel>();
+            CreateMap<Rating, RatingViewModel>();
         }
     }
 }

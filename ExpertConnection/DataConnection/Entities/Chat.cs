@@ -19,5 +19,5 @@ public partial class Chat
 
     public string Contents { get; set; } = null!;
 
-    public virtual DataConnection.Entities.Advise Advise { get; set; } = null!;
+    public virtual Advise Advise { get; set; } = null!;
 }

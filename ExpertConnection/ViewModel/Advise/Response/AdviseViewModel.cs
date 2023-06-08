@@ -17,7 +17,7 @@ namespace ViewModel.Advise.Response
 
         public virtual DataConnection.Entities.CategoryMapping CategoryMapping { get; set; } = null!;
 
-        public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+        public virtual ICollection<DataConnection.Entities.Rating> Ratings { get; set; } = new List<DataConnection.Entities.Rating>();
 
         public virtual DataConnection.Entities.User User { get; set; } = null!;
     }

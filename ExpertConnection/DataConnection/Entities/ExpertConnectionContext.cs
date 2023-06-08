@@ -167,7 +167,6 @@ public partial class ExpertConnectionContext : DbContext
             entity.Property(e => e.Id).HasMaxLength(400);
             entity.Property(e => e.AdviseId).HasMaxLength(400);
             entity.Property(e => e.Comment).HasMaxLength(400);
-            entity.Property(e => e.Rating1).HasColumnName("Rating");
             entity.Property(e => e.UserId).HasMaxLength(400);
 
             entity.HasOne(d => d.Advise).WithMany(p => p.Ratings)
